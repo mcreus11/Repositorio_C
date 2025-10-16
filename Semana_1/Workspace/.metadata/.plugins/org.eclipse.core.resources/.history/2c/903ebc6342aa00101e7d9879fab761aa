@@ -1,0 +1,30 @@
+package Cuenta;
+
+import java.util.Scanner;
+
+public class Principal {
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== CREAR CUENTA DE AHORRO ===");
+        System.out.print("Ingrese el nombre del titular: ");
+        String titular = sc.nextLine();
+
+        System.out.print("Ingrese la cantidad inicial: ");
+        double cantidad = sc.nextDouble();
+
+        System.out.print("Ingrese la tasa de interés (%): ");
+        double tasa = sc.nextDouble();
+
+        // Crear objeto con los datos ingresados
+        CuentaAhorro cuenta = new CuentaAhorro(titular, cantidad, tasa);
+
+        System.out.println("\n=== INFORMACIÓN DE LA CUENTA ===");
+        cuenta.mostrarInfo();
+
+        System.out.println("\n=== CÁLCULO DE INTERÉS ===");
+        cuenta.calcularInteres();
+
+        sc.close();
+    }
+}

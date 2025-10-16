@@ -1,0 +1,223 @@
+package com.mc.Muebles;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Principal {
+	
+	public static void main(String[] args) {
+		
+		//instanciar
+		Mueble m1 = new Mueble("gris", 8000.78, 5, "tela", "sala");
+		Mueble m2 = new Mueble("cafe", 6999.99, 2, "madera", "comedor");
+		Mueble m3 = new Mueble("Terracota", 2000, 2, "caoba", "sala");
+		Mueble sofa = new Mueble("azul", 12000.50, 8, "cuero", "sala");
+		Mueble miMueble = new Mueble("Verde", 5000.00, 1, "tela", "sala");
+		
+		Implementacion imp = new Implementacion();
+		
+		//agregar elementos
+		
+		imp.create(m1);
+		imp.create(m2);
+		imp.create(miMueble);
+		imp.create(sofa);
+		imp.create(m3);
+		
+		//imp.read();
+		
+		//aux = imp.buscar(2);
+		//aux.setMaterial("vinipiel");
+		//System.out.println(aux);
+		
+		//imp.delete(2);
+		//imp.read();
+		
+		//imp.contar();
+	
+	//declaracion de las variables
+	Scanner datos = new Scanner(System.in);
+	int menuP =0, menuS = 0, indice =0;
+	String color, material, ubicacion;
+	int noPiezas;
+	double precio;
+	
+	do {
+		System.out.println("--------MENU--------");
+		System.out.println("1--CREAR");
+		System.out.println("2--ACTUALIZAR");
+		System.out.println("3--MOSTRAR");
+		System.out.println("4--ELIMINAR");
+		System.out.println("5--BUSCAR");
+		System.out.println("6--CONTAR");
+		System.out.println("7--SALIR");
+		System.out.println("Eligue una opcion del menu");
+		
+		//declaracion del bloque try-cath
+		
+		try {
+			menuP = datos.nextInt();
+			datos.nextLine();
+			switch(menuP) {
+			case 1:
+				System.out.println("1--CREAR");
+				System.out.println("Llena los siguientes datos sobre el mueble");
+				
+				System.out.println("Color: ");
+				color = datos.nextLine();
+				System.out.println("Precio: ");
+				precio = datos.nextDouble();
+				datos.nextLine();
+				System.out.println("Numero de piezas: ");
+				noPiezas = datos.nextInt();
+				datos.nextLine();
+				System.out.println("Material: ");
+				material = datos.nextLine();
+				System.out.println("Ubicacion: ");
+				ubicacion = datos.nextLine();
+				
+				Mueble aux = new Mueble(color, precio, noPiezas, material, ubicacion);
+				imp.create(aux);
+				System.out.println("Se guardo");
+				break;
+			case 2:
+				System.out.println("------ACTUALIZAR--------");
+				imprimirDatos(imp);
+				if(imp.lista.size()<0) {
+					System.out.println("Indica el indice para mostrar la informacion");
+					indice = datos.nextInt();
+					datos.nextLine();
+					if(indice>=0 && indice <imp.lista.size()) {
+						aux = imp.buscar(indice);
+						do {
+							System.out.println("MENU DE EDITAR");
+							System.out.println("1--COLOR");
+							System.out.println("2--MATERIAL");
+							System.out.println("3--PRECIO");
+							System.out.println("4--NUMERO DE PIEZAS");
+							System.out.println("5--UBICACION");
+							System.out.println("6--SALIR");
+							System.out.println("ELIGUE UNA OPCION DEL MENU");
+							
+							menuS = datos.nextInt();
+							datos.nextLine();
+							
+							switch(menuS) {
+							case 1:
+								System.out.println("Ingresa el nuevo color: ");
+								color=datos.nextLine();
+								aux.setColor(color);
+								break;
+							case 2:
+								System.out.println("Ingresa el nuevo material: ");
+								material = datos.nextLine();
+								aux.setMaterial(material);
+								break;
+							case 3:
+								System.out.println("Ingresal el precio: ");
+								precio = datos.nextDouble();
+								aux.setPrecio(precio);
+								break;
+							case 4:
+								System.out.println("Ingresa el nuevo numero de piezas: ");
+								noPiezas = datos.nextInt();
+								aux.setNoPiezas(noPiezas);
+								break;
+							case 5:
+								System.out.println("Ingresa la nueva ubicacion: ");
+								ubicacion = datos.nextLine();
+								aux.setUbicacion(ubicacion);
+								break;
+							case 6:
+								System.out.println("Regresando al menu principal...");
+								break;
+								default: 
+									System.out.println("opcion invalida");
+									break;
+							}
+
+						}while(menuS !=6);
+					}else {
+						System.out.println("Indice fuera de rango intente con uno dentro de la lista");
+					}
+				}
+				break;
+				
+			case 3:
+				System.out.println("---------MOSTRAR---------");
+				if(imp.lista.size() >0) {
+					imp.read();
+				}else {
+					System.out.println("No hay registros disponibles");
+				}
+				break;
+			case 4:
+				System.out.println("--------ELIMINAR-----------");
+				imprimirDatos(imp);
+				if(imp.lista.size() >0) {
+					System.out.println("Indica que indice deseas eliminar: ");
+					indice= datos.nextInt();
+					if(indice>=0 && indice<imp.lista.size()) {
+						imp.delete(indice);
+						System.out.println("Eliminacion exitosa");
+					}else {
+						System.out.println("Indice fuera de rango");
+					}
+				}
+				break;
+				
+			case 5:
+				System.out.println("------BUSCAR-------");
+				imprimirDatos(imp);
+				if(imp.lista.size() >0) {
+					System.out.println("Indica el indice para mostrar la informacion: ");
+					indice = datos.nextInt();
+					if(indice >=0 && indice < imp.lista.size()) {
+						aux = imp.buscar(indice);
+						System.out.println("Esta es la informacion completa: \n" + aux);
+					}else {
+						System.out.println("Indice no valido");
+					}
+				}
+				break;
+				
+			case 6:
+				System.out.println("-----------CONTAR-----------");
+				imp.contar();
+				break;
+				
+			case 7:
+				System.out.println("Saliendo del menu...");
+				break;
+				default:
+					System.out.println("Opcion no valida");
+					break;
+			}
+		}catch(InputMismatchException e) {
+			System.out.println("Entrada invalida, intente de nuevo");
+			datos.nextLine();
+		}catch(Exception e) {
+			System.out.println("Ocurrio un error interno");
+			
+		}
+	}while(menuP !=7);
+	
+}
+
+	private static void imprimirDatos(Implementacion imp) {
+		System.out.println("-----------Muebles registrados---------");
+		if(imp.lista.size() > 0) {
+			for(int i =0; i<imp.lista.size(); i++) {
+				System.out.println("El mueble [" + i + "] de color: " + imp.lista.get(i).getColor());
+
+			}
+		}else {
+			System.out.println("No hay registros dispobibles");
+
+		}
+
+		
+	}
+
+
+}

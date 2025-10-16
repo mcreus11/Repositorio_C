@@ -1,0 +1,29 @@
+package Cuenta;
+
+public class CuentaAhorro {
+	private double tasaInteres;
+	
+	public CuentaAhorro() {
+		
+	}
+
+	public CuentaAhorro(double tasaInteres) {
+		super();
+		this.tasaInteres = tasaInteres;
+	}
+
+	public double getTasaInteres() {
+		return tasaInteres;
+	}
+
+	public void setTasaInteres(double tasaInteres) {
+		this.tasaInteres = tasaInteres;
+	}
+
+	@Override
+	public String toString() {
+		return "CuentaAhorro [tasaInteres=" + tasaInteres + "]";
+	}
+	
+
+}

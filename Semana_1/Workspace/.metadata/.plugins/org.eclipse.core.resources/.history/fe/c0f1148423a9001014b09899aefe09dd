@@ -1,0 +1,73 @@
+package com.mc.Muebles;
+
+import java.util.Scanner;
+
+public class Principal {
+	
+	public static void main(String[] args) {
+		
+		//instanciar
+		Mueble m1 = new Mueble("gris", 8000.78, 5, "tela", "sala");
+		Mueble m2 = new Mueble("cafe", 6999.99, 2, "madera", "comedor");
+		Mueble m3 = new Mueble("Terracota", 2000, 2, "caoba", "sala");
+		Mueble sofa = new Mueble("azul", 12000.50, 8, "cuero", "sala");
+		Mueble miMueble = new Mueble("Verde", 5000.00, 1, "tela", "sala");
+		
+		Implementacion imp = new Implementacion();
+		
+		//agregar elementos
+		
+		imp.create(m1);
+		imp.create(m2);
+		imp.create(miMueble);
+		imp.create(sofa);
+		imp.create(m3);
+		
+		//imp.read();
+		
+		//aux = imp.buscar(2);
+		//aux.setMaterial("vinipiel");
+		//System.out.println(aux);
+		
+		//imp.delete(2);
+		//imp.read();
+		
+		//imp.contar();
+	
+	//declaracion de las variables
+	Scanner datos = new Scanner(System.in);
+	int menuP =0, menuS = 0, indice =0;
+	String color, material, ubicacion;
+	int noPiezas;
+	double precio;
+	
+	do {
+		System.out.println("--------MENU--------");
+		System.out.println("1--CREAR");
+		System.out.println("2--ACTUALIZAR");
+		System.out.println("3--MOSTRAR");
+		System.out.println("4--ELIMINAR");
+		System.out.println("5--BUSCAR");
+		System.out.println("6--CONTAR");
+		System.out.println("7--SALIR");
+		System.out.println("Eligue una opcion del menu");
+		
+		//declaracion del bloque try-cath
+		
+		try {
+			menuP = datos.nextInt();
+			datos.nextLine();
+			
+		}catch(Exception e) {
+			
+		}
+	}while(menuP !=7);
+		
+
+		
+	
+	
+}
+
+
+}

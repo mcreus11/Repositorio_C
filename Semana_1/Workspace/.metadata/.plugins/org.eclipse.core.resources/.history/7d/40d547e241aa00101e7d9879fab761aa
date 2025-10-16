@@ -1,0 +1,24 @@
+package Cuenta;
+
+public class Principal {
+	public static void main(String[] args) {
+        CuentaAhorro cuenta = new CuentaAhorro();
+
+        mostrarInfo(cuenta);
+        calcularInteres(cuenta);
+    }
+
+    // Método para mostrar la información de la cuenta
+    public static void mostrarInfo(CuentaAhorro cuenta) {
+        System.out.println("Titular: " + cuenta.getTitular());
+        System.out.println("Cantidad actual: $" + cuenta.getCantidad());
+        System.out.println("Tasa de interés: " + cuenta.getTasaInteres() + "%");
+    }
+
+    // Método para calcular el interés
+    public static void calcularInteres(CuentaAhorro cuenta) {
+        double interes = cuenta.getCantidad() * cuenta.getTasaInteres() / 100;
+        System.out.println("Interés generado: $" + interes);
+    }
+
+}

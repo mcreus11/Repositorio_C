@@ -1,0 +1,26 @@
+package Cuenta;
+
+import java.util.Scanner;
+
+public class Principal {
+	public static void main(String[] args) {
+        
+        String miTitular = "Ana Pérez";
+        double miCantidadInicial = 1500.00;
+        double miTasaInteres = 4.5;
+
+        CuentaAhorro miCuenta = new CuentaAhorro(miTitular, miCantidadInicial, miTasaInteres);
+
+        miCuenta.mostrarInfo();
+
+        miCuenta.calcularInteres();
+
+        miCuenta.setCantidad(-100);     
+        miCuenta.setTasaInteres(-2.0);
+        
+        
+        System.out.println("\nTras validaciones:");
+        miCuenta.mostrarInfo();
+        miCuenta.calcularInteres();
+    }
+}

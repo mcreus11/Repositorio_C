@@ -1,0 +1,19 @@
+package Empleado;
+
+public class EmpleadoPorHoras extends Empleado{
+
+	public EmpleadoPorHoras(String nombre, int edad, double salario) {
+        super(nombre, edad, salario);
+    }
+
+    @Override
+    public double calcularBono() {
+        // Bono de $100 por cada año mayor a 25
+        int extra = getEdad() - 25;
+        if (extra > 0) {
+            return extra * 100;
+        } else {
+            return 0;
+        }
+    }
+}

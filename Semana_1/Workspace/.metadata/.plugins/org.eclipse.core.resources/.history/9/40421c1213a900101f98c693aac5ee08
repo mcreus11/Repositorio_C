@@ -1,0 +1,39 @@
+package com.mc.Muebles;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Implementacion implements IMetodos{
+
+	List<Mueble> lista = new ArrayList<Mueble>();	
+	@Override
+	public void create(Mueble mueble) {
+		
+		
+	}
+
+	@Override
+	public void update(int indice, Mueble mueble) {
+		lista.set(indice, mueble);
+		
+	}
+
+	@Override
+	public void read() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(int indice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Mueble buscar(int indice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

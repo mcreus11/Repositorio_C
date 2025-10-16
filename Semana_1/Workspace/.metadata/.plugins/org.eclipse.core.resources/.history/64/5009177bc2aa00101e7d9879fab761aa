@@ -1,0 +1,82 @@
+package Lambda;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class Principal {
+	public static void main(String[] args) {
+		// Instanciar
+		Alumno a1 = new Alumno(58961, "Jose", "Gonzales", "Jimenez", 21, "Lic. Gastronomia", "Buap");
+		Alumno a2 = new Alumno(68741, "Luis", "Osorio", "Sanchez", 29, "Lic. Administracion", "Unam");
+		Alumno a3 = new Alumno(78459, "Mariana", "Dominguez", "Hernandez", 23, "Lic. Enfermeria", "Buap");
+		Alumno a4 = new Alumno(89567, "Rodrigo", "Morales", "Gonzales", 20, "Lic. Arquitectura", "Upaep");
+		Alumno a5 = new Alumno(65234, "Carlos", "Jimenez", "Jimenez", 25, "Lic. Medicina", "Buap");
+
+		List<Alumno> lista = new ArrayList<Alumno>();
+
+		lista.add(a1);
+		lista.add(a2);
+		lista.add(a3);
+		lista.add(a4);
+		lista.add(a5);
+
+		
+		lista.forEach(
+				(alumno) -> {System.out.println("Nombre del alumno: " + alumno.getNombre());});
+		
+		//imprimir el detalle de un alumno usando filtros
+		System.out.println("\nDetalle del alumno");
+		lista.stream().filter(
+		    alu -> alu.getUniversidad().equalsIgnoreCase("buap")
+		).forEach(
+		    alumno -> System.out.println("Nombre: " + alumno.getNombre() + " estudia: " + alumno.getCarrera()
+		    + " en la universidad: " + alumno.getUniversidad())
+		);
+		
+		//expresiones lambda con interfaces funcionales
+		ISaludo mensaje = (saludo, despedida) -> saludo + " y " + despedida;
+
+		System.out.println("Expresión lambda con un parámetro: " + mensaje.saludar("Hola", "Hasta luego"));
+		
+		 // Filtrar alumnos con edad > 22
+        List<Alumno> mayores22 = lista.stream()
+                .filter(a -> a.getEdad() > 22)
+                .toList();
+        System.out.println("\nMayores de 22: " + mayores22);
+
+        //  Filtrar alumnos cuyo nombre termine en s
+        List<Alumno> nombreTerminaEnS = lista.stream()
+                .filter(a -> a.getNombre() != null && a.getNombre().toUpperCase().endsWith("S"))
+                .toList();
+
+        // Ordenar alumnos por nombre (ascendente)
+        List<Alumno> ordenadosPorNombre = lista.stream()
+                .sorted(Comparator.comparing(a -> a.getNombre().toLowerCase()))
+                .toList();
+
+        // Contar alumnos de la carrera Lic. Medicina
+        long cntMedicina = lista.stream()
+                .filter(a -> "Lic. Medicina".equalsIgnoreCase(a.getCarrera().trim()))
+                .count();
+
+        // Mapear los nombres a MAYÚSCULAS
+        List<String> nombresMayus = lista.stream()
+                .map(a -> a.getNombre().toUpperCase())
+                .toList();
+
+        // 6) Promedio de edades
+        double promedioEdades = lista.stream()
+                .mapToInt(Alumno::getEdad)
+                .average()
+                .orElse(0);
+
+        
+       
+        System.out.println("\nNombre termina en 'S': " + nombreTerminaEnS);
+        System.out.println("\nOrdenados por nombre: " + ordenadosPorNombre);
+        System.out.println("\nAlumnos en Lic. Medicina: " + cntMedicina);
+        System.out.println("\nNombres en mayúsculas: " + nombresMayus);
+        System.out.printf("\nPromedio de edades: %.2f%n", promedioEdades);
+	}
+}

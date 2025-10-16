@@ -1,0 +1,14 @@
+package com.mx.Libro;
+
+public interface IMetodos {
+	public void guardar(Libro libro);
+
+	public Libro buscar (Libro libro);
+
+	public void editar( Libro libro);
+
+	public void eliminar( Libro libro);
+
+	public void mostrar ();
+
+}
