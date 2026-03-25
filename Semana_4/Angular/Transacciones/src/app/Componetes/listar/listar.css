@@ -1,0 +1,47 @@
+.container {
+  max-width: 950px;
+  background-color: #f8f9fa;
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  letter-spacing: 1px;
+}
+
+.table thead {
+  background: linear-gradient(45deg, #007bff, #00b4d8);
+  color: #fff;
+  border: none;
+}
+
+.table-row-hover:hover {
+  background-color: #e3f2fd !important;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline-danger {
+  border-width: 2px;
+  font-weight: 500;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+.badge {
+  font-size: 0.9rem;
+  border-radius: 1rem;
+}
+
+.alert-info {
+  background-color: #e7f5ff;
+  color: #0366d6;
+  border: none;
+}

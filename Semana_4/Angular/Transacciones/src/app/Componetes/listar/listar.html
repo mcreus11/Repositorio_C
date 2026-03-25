@@ -1,0 +1,57 @@
+<div class="container mt-5 p-4 rounded shadow-lg bg-light">
+  <h2 class="text-center mb-4 text-primary fw-bold">
+     Lista de Transacciones
+  </h2>
+
+  <!-- Mensaje si no hay registros -->
+  <div *ngIf="!transacciones || transacciones.length === 0" class="alert alert-info text-center fs-5">
+    No hay transacciones registradas.
+  </div>
+
+  <!-- Tabla -->
+  <div *ngIf="transacciones && transacciones.length > 0" class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center shadow-sm">
+      <thead class="table-primary text-dark">
+        <tr>
+          <th>ID</th>
+          <th>Operación</th>
+          <th>Importe</th>
+          <th>Cliente</th>
+          <th>Referencia</th>
+          <th>Estatus</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tx of transacciones" class="table-row-hover">
+          <td>{{ tx.id }}</td>
+          <td class="fw-semibold text-uppercase">{{ tx.operacion }}</td>
+          <td class="text-success fw-bold">${{ tx.importe | number:'1.2-2' }}</td>
+          <td>{{ tx.cliente }}</td>
+          <td class="text-muted">{{ tx.referencia }}</td>
+
+          <td>
+            <span class="badge px-3 py-2 fs-6 shadow-sm"
+              [ngClass]="{
+                'bg-success text-light': tx.estatus === 'Aprobada',
+                'bg-danger text-light': tx.estatus === 'Cancelada',
+                'bg-secondary text-light': !tx.estatus
+              }">
+              {{ tx.estatus || 'Pendiente' }}
+            </span>
+          </td>
+
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm rounded-pill px-3"
+              [disabled]="tx.estatus === 'Cancelada'"
+              (click)="cancelarTransaccion(tx.id!, tx.referencia)">
+              <i class="bi bi-x-circle me-1"></i> Cancelar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
