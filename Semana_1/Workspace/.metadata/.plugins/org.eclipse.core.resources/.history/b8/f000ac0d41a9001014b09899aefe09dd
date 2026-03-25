@@ -1,0 +1,81 @@
+package com.mx.HashMap;
+
+public class Mueble {
+	private String nombre;
+	private String color;
+	private String material;
+	private double precio;
+	private int noPiezas;
+	private String ubicacion;
+	
+	public Mueble() {
+		
+	}
+
+	public Mueble(String nombre, String color, String material, double precio, int noPiezas, String ubicacion) {
+		super();
+		this.nombre = nombre;
+		this.color = color;
+		this.material = material;
+		this.precio = precio;
+		this.noPiezas = noPiezas;
+		this.ubicacion = ubicacion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public int getNoPiezas() {
+		return noPiezas;
+	}
+
+	public void setNoPiezas(int noPiezas) {
+		this.noPiezas = noPiezas;
+	}
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Mueble [nombre=" + nombre + ", color=" + color + ", material=" + material + ", precio=" + precio
+				+ ", noPiezas=" + noPiezas + ", ubicacion=" + ubicacion + "]\n";
+	}
+	
+	
+
+}

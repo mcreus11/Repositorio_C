@@ -1,0 +1,34 @@
+package com.mc.Muebles;
+
+
+
+public class Implementacion implements IMetodos{
+
+	
+	@Override
+	public void create(Mueble mueble) {
+		
+	}
+
+	@Override
+	public void update(int indice, Mueble mueble) {
+		
+	}
+
+	@Override
+	public void read() {
+		
+	}
+
+	@Override
+	public void delete(int indice) {
+		
+	}
+
+	@Override
+	public Mueble buscar(int indice) {
+		return lista.get(indice);
+	}
+	
+
+}

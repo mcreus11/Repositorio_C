@@ -1,0 +1,19 @@
+package Empleado;
+
+public class Principal {
+	 public static void main(String[] args) {
+
+	        // Crear empleados
+	        EmpleadoTiempoCompleto emp1 = new EmpleadoTiempoCompleto("María López", 30, 12000);
+	        EmpleadoPorHoras emp2 = new EmpleadoPorHoras("Carlos Díaz", 28, 8000);
+
+	        System.out.println("=== EMPLEADO TIEMPO COMPLETO ===");
+	        emp1.mostrarInfo();
+	        System.out.println("Bono calculado: $" + emp1.calcularBono());
+
+	        System.out.println("\n=== EMPLEADO POR HORAS ===");
+	        emp2.mostrarInfo();
+	        System.out.println("Bono calculado: $" + emp2.calcularBono());
+	    }
+
+}

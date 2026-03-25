@@ -1,0 +1,68 @@
+package ejercicio;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Diccionario {
+
+	public static void main(String[] args) {
+        Map<String, String> dic = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+
+        dic.put("cat", "gato");
+        dic.put("dog", "perro");
+        dic.put("house", "casa");
+
+        int op;
+        do {
+            System.out.println("\n=== Diccionario EN->ES ===");
+            System.out.println("1) Agregar/actualizar traducción");
+            System.out.println("2) Buscar traducción");
+            System.out.println("3) Mostrar todas");
+            System.out.println("0) Salir");
+            System.out.print("Opción: ");
+            String line = sc.nextLine().trim();
+            op = line.isEmpty() ? -1 : Character.getNumericValue(line.charAt(0));
+
+            switch (op) {
+                case 1 -> {
+                    System.out.print("Palabra en inglés: ");
+                    String en = sc.nextLine().trim().toLowerCase();
+                    System.out.print("Traducción al español: ");
+                    String es = sc.nextLine().trim();
+                    boolean existía = dic.containsKey(en);
+                    dic.put(en, es);
+                    System.out.println(existía ? "Actualizada." : "Agregada.");
+                }
+                case 2 -> {
+                    System.out.print("Ingrese palabra en inglés: ");
+                    String en = sc.nextLine().trim().toLowerCase();
+                    if (dic.containsKey(en)) {
+                        System.out.println("Traducción: " + dic.get(en));
+                    } else {
+                        System.out.println("No existe una traducción para \"" + en + "\".");
+                    }
+                }
+                case 3 -> {
+                    if (dic.isEmpty()) {
+                        System.out.println("(Diccionario vacío)");
+                    } else {
+                        System.out.println("Todas las traducciones EN -> ES:");
+                        dic.entrySet().stream()
+                           .sorted(Map.Entry.comparingByKey())
+                           .forEach(e -> System.out.println(" - " + e.getKey() + " -> " + e.getValue()));
+                    }
+                }
+                case 0 -> System.out.println("Saliendo del menu...");
+                default -> {
+                    if (op != 0 && op != 1 && op != 2 && op != 3) {
+                        System.out.println("Opción inválida.");
+                    }
+                }
+            }
+        } while (op != 0);
+
+        sc.close();
+    }
+}

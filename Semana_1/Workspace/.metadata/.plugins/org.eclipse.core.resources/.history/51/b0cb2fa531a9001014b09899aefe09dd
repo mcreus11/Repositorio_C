@@ -1,0 +1,211 @@
+package com.mx.Libro;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Principal {
+	public static void main(String[] args) {
+		 // Instanciar libros
+        Libro L1 = new Libro(21, "Los juegos del hambre", "Suzanne Collins", "Scholastic Press", 2008, 5400);
+        Libro L2 = new Libro(22, "El arte de programar", "Donald Knuth", "Addison-Wesley", 1997, 7500);
+        Libro L3 = new Libro(23, "Cien años de soledad", "Gabriel García Márquez", "Sudamericana", 1967, 5200);
+        Libro L4 = new Libro(24, "1984", "George Orwell", "Secker & Warburg", 1949, 4500);
+        Libro L5 = new Libro(25, "El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", 1943, 3200);
+        Libro L6 = new Libro(26, "Harry Potter y la piedra filosofal", "J.K. Rowling", "Bloomsbury", 1997, 5800);
+        Libro L7 = new Libro(27, "Don Quijote de la Mancha", "Miguel de Cervantes", "Francisco de Robles", 1605, 4900);
+        Libro L8 = new Libro(28, "La sombra del viento", "Carlos Ruiz Zafón", "Planeta", 2001, 6100);
+
+        // Crear implementación
+        Implementacion imp = new Implementacion();
+
+        // Agregar libros
+        imp.create(L1);
+        imp.create(L2);
+        imp.create(L3);
+        imp.create(L4);
+        imp.create(L5);
+        imp.create(L6);
+        imp.create(L7);
+        imp.create(L8);
+
+        Scanner datos = new Scanner(System.in);
+        int menuP = 0, menuS = 0, indice = 0;
+        String titulo, autor, editorial;
+        int anio;
+        double precio;
+
+        do {
+            System.out.println("--------MENU--------");
+            System.out.println("1--CREAR");
+            System.out.println("2--ACTUALIZAR");
+            System.out.println("3--MOSTRAR");
+            System.out.println("4--ELIMINAR");
+            System.out.println("5--BUSCAR");
+            System.out.println("6--CONTAR");
+            System.out.println("7--SALIR");
+            System.out.println("Elige una opción del menú:");
+
+            try {
+                menuP = datos.nextInt();
+                datos.nextLine(); // limpiar buffer
+
+                switch (menuP) {
+                    case 1:
+                        System.out.println("--------CREAR LIBRO--------");
+                        System.out.println("Titulo: ");
+                        titulo = datos.nextLine();
+                        System.out.println("Autor: ");
+                        autor = datos.nextLine();
+                        System.out.println("Editorial: ");
+                        editorial = datos.nextLine();
+                        System.out.println("Año de publicación: ");
+                        anio = datos.nextInt();
+                        System.out.println("Precio: ");
+                        precio = datos.nextDouble();
+                        datos.nextLine();
+
+                        Libro aux = new Libro(0, titulo, autor, editorial, anio, precio);
+                        imp.create(aux);
+                        System.out.println("Libro guardado correctamente");
+                        break;
+
+                    case 2:
+                        System.out.println("--------ACTUALIZAR LIBRO--------");
+                        imprimirLibros(imp);
+                        if (imp.lista.size() > 0) {
+                            System.out.println("Indica el índice del libro a actualizar:");
+                            indice = datos.nextInt();
+                            datos.nextLine();
+                            if (indice >= 0 && indice < imp.lista.size()) {
+                                aux = imp.buscar(indice);
+                                do {
+                                    System.out.println("MENU DE EDITAR");
+                                    System.out.println("1--TITULO");
+                                    System.out.println("2--AUTOR");
+                                    System.out.println("3--EDITORIAL");
+                                    System.out.println("4--AÑO DE PUBLICACIÓN");
+                                    System.out.println("5--PRECIO");
+                                    System.out.println("6--SALIR");
+                                    System.out.println("Elige opción:");
+
+                                    menuS = datos.nextInt();
+                                    datos.nextLine();
+
+                                    switch (menuS) {
+                                        case 1:
+                                            System.out.println("Nuevo título:");
+                                            titulo = datos.nextLine();
+                                            aux.setTitulo(titulo);
+                                            break;
+                                        case 2:
+                                            System.out.println("Nuevo autor:");
+                                            autor = datos.nextLine();
+                                            aux.setAutor(autor);
+                                            break;
+                                        case 3:
+                                            System.out.println("Nueva editorial:");
+                                            editorial = datos.nextLine();
+                                            aux.setEditorial(editorial);
+                                            break;
+                                        case 4:
+                                            System.out.println("Nuevo año de publicación:");
+                                            anio = datos.nextInt();
+                                            aux.setAnio(anio);
+                                            break;
+                                        case 5:
+                                            System.out.println("Nuevo precio:");
+                                            precio = datos.nextDouble();
+                                            aux.setPrecio(precio);
+                                            break;
+                                        case 6:
+                                            System.out.println("Regresando al menú principal...");
+                                            break;
+                                        default:
+                                            System.out.println("Opción inválida");
+                                    }
+
+                                    imp.update(indice, aux);
+
+                                } while (menuS != 6);
+                            } else {
+                                System.out.println("Índice fuera de rango");
+                            }
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("--------MOSTRAR LIBROS--------");
+                        if (imp.lista.size() > 0) {
+                            imp.read();
+                        } else {
+                            System.out.println("No hay libros registrados");
+                        }
+                        break;
+
+                    case 4:
+                        System.out.println("--------ELIMINAR LIBRO--------");
+                        imprimirLibros(imp);
+                        if (imp.lista.size() > 0) {
+                            System.out.println("Indica el índice a eliminar:");
+                            indice = datos.nextInt();
+                            if (indice >= 0 && indice < imp.lista.size()) {
+                                imp.delete(indice);
+                                System.out.println("Libro eliminado correctamente");
+                            } else {
+                                System.out.println("Índice fuera de rango");
+                            }
+                        }
+                        break;
+
+                    case 5:
+                        System.out.println("--------BUSCAR LIBRO--------");
+                        imprimirLibros(imp);
+                        if (imp.lista.size() > 0) {
+                            System.out.println("Indica el índice a buscar:");
+                            indice = datos.nextInt();
+                            if (indice >= 0 && indice < imp.lista.size()) {
+                                aux = imp.buscar(indice);
+                                System.out.println("Información completa del libro:");
+                                System.out.println(aux);
+                            } else {
+                                System.out.println("Índice inválido");
+                            }
+                        }
+                        break;
+
+                    case 6:
+                        System.out.println("--------CONTAR LIBROS--------");
+                        imp.contar();
+                        break;
+
+                    case 7:
+                        System.out.println("Saliendo del programa...");
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida, intente de nuevo");
+                datos.nextLine(); // limpiar buffer
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error interno");
+            }
+
+        } while (menuP != 7);
+
+        datos.close();
+    }
+
+    private static void imprimirLibros(Implementacion imp) {
+        System.out.println("--------Libros registrados--------");
+        if (imp.lista.size() > 0) {
+            for (int i = 0; i < imp.lista.size(); i++) {
+                System.out.println("[" + i + "] " + imp.lista.get(i).getTitulo() + " - " + imp.lista.get(i).getAutor());
+            }
+        } else {
+            System.out.println("No hay libros registrados");
+        }
+    }
+}

@@ -1,0 +1,93 @@
+package ejercicio;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Diccionario {
+
+    private static final Scanner sc = new Scanner(System.in);
+    private static final Map<String, String> dicc = new HashMap<>();
+
+    public static void main(String[] args) {
+        // Algunas palabras de ejemplo
+        dicc.put("cat", "gato");
+        dicc.put("dog", "perro");
+        dicc.put("house", "casa");
+
+        int opcion;
+        do {
+            mostrarMenu();
+            opcion = leerEntero("Elige una opción: ");
+            switch (opcion) {
+                case 1 -> agregarTraduccion();
+                case 2 -> buscarTraduccion();
+                case 3 -> mostrarTodas();
+                case 0 -> System.out.println("¡Hasta luego!");
+                default -> System.out.println("Opción no válida.");
+            }
+            System.out.println();
+        } while (opcion != 0);
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("===== DICCIONARIO (inglés -> español) =====");
+        System.out.println("1) Agregar traducción");
+        System.out.println("2) Buscar por palabra en inglés");
+        System.out.println("3) Mostrar todas las traducciones");
+        System.out.println("0) Salir");
+    }
+
+    private static void agregarTraduccion() {
+        String ingles = leerTexto("Palabra en inglés: ").toLowerCase().trim();
+        String espanol = leerTexto("Traducción al español: ").toLowerCase().trim();
+
+        if (ingles.isEmpty() || espanol.isEmpty()) {
+            System.out.println("No se permiten campos vacíos.");
+            return;
+        }
+
+        String anterior = dicc.put(ingles, espanol);
+        if (anterior == null) {
+            System.out.println("✅ Traducción agregada.");
+        } else {
+            System.out.printf("ℹ️ Actualizada: '%s' antes era '%s', ahora es '%s'%n",
+                    ingles, anterior, espanol);
+        }
+    }
+
+    private static void buscarTraduccion() {
+        String ingles = leerTexto("Ingrese palabra en inglés: ").toLowerCase().trim();
+
+        if (dicc.containsKey(ingles)) {
+            System.out.println("Traducción: " + dicc.get(ingles));
+        } else {
+            System.out.println("❌ La palabra no existe en el diccionario.");
+        }
+    }
+
+    private static void mostrarTodas() {
+        if (dicc.isEmpty()) {
+            System.out.println("No hay traducciones registradas.");
+            return;
+        }
+        System.out.println("=== Todas las traducciones ===");
+        dicc.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(e -> System.out.printf("%s -> %s%n", e.getKey(), e.getValue()));
+    }
+
+    // Utilidades de lectura
+    private static int leerEntero(String msg) {
+        while (true) {
+            System.out.print(msg);
+            String s = sc.nextLine();
+            try { return Integer.parseInt(s.trim()); }
+            catch (NumberFormatException e) { System.out.println("Ingresa un número válido."); }
+        }
+    }
+    private static String leerTexto(String msg) {
+        System.out.print(msg);
+        return sc.nextLine();
+    }
+}

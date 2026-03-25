@@ -1,0 +1,28 @@
+package Cuenta;
+
+import java.util.Scanner;
+
+public class Principal {
+	public static void main(String[] args) {
+        // Crea una CuentaAhorro con tus datos
+        // Cambia estos valores por los que quieras probar
+        String miTitular = "Ana Pérez";
+        double miCantidadInicial = 1500.00;
+        double miTasaInteres = 4.5;
+
+        CuentaAhorro miCuenta = new CuentaAhorro(miTitular, miCantidadInicial, miTasaInteres);
+
+        // Muestra info de la cuenta
+        miCuenta.mostrarInfo();
+
+        // Calcula e imprime el interés generado
+        miCuenta.calcularInteres();
+
+        // Ejemplo de validaciones:
+        miCuenta.setCantidad(-100);     // se guarda como 0
+        miCuenta.setTasaInteres(-2.0);  // se guarda como 0
+        System.out.println("\nTras validaciones:");
+        miCuenta.mostrarInfo();
+        miCuenta.calcularInteres();
+    }
+}

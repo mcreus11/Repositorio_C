@@ -1,0 +1,14 @@
+package Cuenta;
+
+public class Principal {
+	public static void main(String[] args) {
+        // Crear un objeto de tipo CuentaAhorro
+        CuentaAhorro cuenta = new CuentaAhorro("Marco Brito", 5000, 5.0);
+
+        // Mostrar información de la cuenta
+        cuenta.mostrarInfo();
+
+        // Calcular e imprimir el interés
+        cuenta.calcularInteres();
+    }
+}

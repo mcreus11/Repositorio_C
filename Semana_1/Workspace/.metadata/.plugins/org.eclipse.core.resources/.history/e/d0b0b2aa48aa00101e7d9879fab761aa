@@ -1,0 +1,15 @@
+package Empleado;
+
+public class EmpleadoTiempoCompleto extends Empleado{
+	
+	public EmpleadoTiempoCompleto(String nombre, int edad, double salario) {
+        super(nombre, edad, salario);
+    }
+
+    @Override
+    public double calcularBono() {
+        // Bono del 20% del salario
+        return getSalario() * 0.20;
+    }
+
+}

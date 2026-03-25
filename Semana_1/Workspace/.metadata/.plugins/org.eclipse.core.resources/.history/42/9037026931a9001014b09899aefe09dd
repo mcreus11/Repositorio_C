@@ -1,0 +1,52 @@
+package com.mx.Libro;
+
+
+
+
+public class Principal {
+	public static void main(String[] args) {
+		 // Instanciar libros
+        Libro L1 = new Libro(21, "Los juegos del hambre", "Suzanne Collins", "Scholastic Press", 2008, 5400);
+        Libro L2 = new Libro(22, "El arte de programar", "Donald Knuth", "Addison-Wesley", 1997, 7500);
+        Libro L3 = new Libro(23, "Cien años de soledad", "Gabriel García Márquez", "Sudamericana", 1967, 5200);
+        Libro L4 = new Libro(24, "1984", "George Orwell", "Secker & Warburg", 1949, 4500);
+        Libro L5 = new Libro(25, "El principito", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", 1943, 3200);
+        Libro L6 = new Libro(26, "Harry Potter y la piedra filosofal", "J.K. Rowling", "Bloomsbury", 1997, 5800);
+        Libro L7 = new Libro(27, "Don Quijote de la Mancha", "Miguel de Cervantes", "Francisco de Robles", 1605, 4900);
+        Libro L8 = new Libro(28, "La sombra del viento", "Carlos Ruiz Zafón", "Planeta", 2001, 6100);
+
+        // Crear implementación
+        Implementacion imp = new Implementacion();
+
+        // Agregar libros
+        imp.create(L1);
+        imp.create(L2);
+        imp.create(L3);
+        imp.create(L4);
+        imp.create(L5);
+        imp.create(L6);
+        imp.create(L7);
+        imp.create(L8);
+
+        // Mostrar 
+        System.out.println("=== Lista de libros ===");
+        imp.read();
+
+        System.out.println("\n=== Buscar libro en índice 2 ===");
+        Libro aux = imp.buscar(2);
+        System.out.println(aux);
+
+        System.out.println("\n=== Modificar libro del índice 2 ===");
+        aux.setAutor("Octavio");
+        aux.setEditorial("Santillana");
+        imp.update(2, aux);
+
+        imp.read();
+
+        System.out.println("\n=== Eliminar libro en índice 2 ===");
+        imp.delete(2);
+        imp.read();
+
+        imp.contar();
+    }
+}

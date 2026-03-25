@@ -1,0 +1,40 @@
+package com.mx.Libro;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Implementacion implements IMetodos{
+
+    List<Libro> lista = new ArrayList<Libro>();
+
+	@Override
+	public void guardar(Libro libro) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Libro buscar(Libro libro) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void editar(Libro libro) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(Libro libro) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mostrar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

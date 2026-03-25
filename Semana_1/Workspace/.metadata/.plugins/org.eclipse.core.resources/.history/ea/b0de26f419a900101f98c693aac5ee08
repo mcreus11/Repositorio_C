@@ -1,0 +1,40 @@
+package com.mx.Libro;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Implementacion implements IMetodos {
+
+    // Lista donde se guardarán los libros
+    List<Libro> lista = new ArrayList<Libro>();
+
+    @Override
+    public void create(Libro libro) {
+        lista.add(libro);
+    }
+
+    @Override
+    public void update(int indice, Libro libro) {
+        lista.set(indice, libro);
+    }
+
+    @Override
+    public void read() {
+        System.out.println(lista);
+    }
+
+    @Override
+    public void delete(int indice) {
+        lista.remove(indice);
+    }
+
+    @Override
+    public Libro buscar(int indice) {
+        return lista.get(indice);
+    }
+
+    // Método personalizado
+    public void contar() {
+        System.out.println("Existen " + lista.size() + " libros registrados");
+    }
+}

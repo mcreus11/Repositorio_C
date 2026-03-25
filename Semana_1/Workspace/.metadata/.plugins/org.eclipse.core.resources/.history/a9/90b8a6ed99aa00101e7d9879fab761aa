@@ -1,0 +1,26 @@
+package Cuenta;
+
+public class CuentaAhorro extends Cuenta {
+    private double tasaInteres; // en porcentaje, p. ej. 5.5 significa 5.5%
+
+    public CuentaAhorro(String titular, double cantidadInicial, double tasaInteres) {
+        super(titular, cantidadInicial);
+        // Por seguridad, una tasa negativa se corrige a 0
+        this.tasaInteres = Math.max(0, tasaInteres);
+    }
+
+    public double getTasaInteres() {
+        return tasaInteres;
+    }
+
+    public void setTasaInteres(double tasaInteres) {
+        this.tasaInteres = Math.max(0, tasaInteres);
+    }
+
+    // Método para calcular e imprimir el interés generado
+    public void calcularInteres() {
+        double interes = getCantidad() * tasaInteres / 100.0;
+        System.out.println("Interés generado ("
+                + tasaInteres + "%): " + interes);
+    }
+}

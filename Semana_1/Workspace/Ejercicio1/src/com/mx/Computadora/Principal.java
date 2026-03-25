@@ -1,0 +1,158 @@
+package com.mx.Computadora;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Principal {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Computadora> lista = new ArrayList<>();
+        int opcion = 0;
+
+        do {
+            System.out.println("------MENU--------");
+            System.out.println("1.- AGREGAR");
+            System.out.println("2.- MOSTRAR");
+            System.out.println("3.- EDITAR");
+            System.out.println("4.- BUSCAR por marca");
+            System.out.println("5.- ELIMINAR por marca");
+            System.out.println("6.- CONTAR");
+            System.out.println("7.- ELIMINAR TODO");
+            System.out.println("8.- SALIR DEL MENU");
+            System.out.print("**Elige una opcion dentro del menu**: ");
+
+            opcion = sc.nextInt();
+            sc.nextLine(); 
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("=== AGREGAR COMPUTADORA ===");
+                    System.out.print("Marca: ");
+                    String marca = sc.nextLine();
+                    System.out.print("Modelo: ");
+                    String modelo = sc.nextLine();
+                    System.out.print("Precio: ");
+                    double precio = sc.nextDouble();
+                    System.out.print("RAM (GB): ");
+                    int ram = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Capacidad (GB/TB): ");
+                    String capacidad = sc.nextLine();
+
+                
+                    boolean existe = false;
+                    for (Computadora c : lista) {
+                        if (c.getMarca().equalsIgnoreCase(marca) &&
+                            c.getModelo().equalsIgnoreCase(modelo)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (existe) {
+                        System.out.println(" Ya existe una computadora con esa marca y modelo.");
+                    } else {
+                        lista.add(new Computadora(marca, modelo, precio, ram, capacidad));
+                        System.out.println(" Computadora agregada con éxito.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("=== LISTA DE COMPUTADORAS ===");
+                    if (lista.isEmpty()) {
+                        System.out.println("No hay computadoras registradas.");
+                    } else {
+                        for (Computadora c : lista) {
+                            System.out.println(c);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("=== EDITAR COMPUTADORA ===");
+                    System.out.print("Ingresa la marca a editar: ");
+                    String marcaEditar = sc.nextLine();
+                    boolean encontrada = false;
+                    for (Computadora c : lista) {
+                        if (c.getMarca().equalsIgnoreCase(marcaEditar)) {
+                            encontrada = true;
+                            System.out.print("Nuevo modelo: ");
+                            c.setModelo(sc.nextLine());
+                            System.out.print("Nuevo precio: ");
+                            c.setPrecio(sc.nextDouble());
+                            System.out.print("Nueva RAM: ");
+                            c.setRam(sc.nextInt());
+                            sc.nextLine();
+                            System.out.print("Nueva capacidad: ");
+                            c.setCapacidad(sc.nextLine());
+                            System.out.println(" Computadora actualizada correctamente.");
+                            break;
+                        }
+                    }
+                    if (!encontrada) {
+                        System.out.println(" No se encontró una computadora con esa marca.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("=== BUSCAR COMPUTADORA ===");
+                    System.out.print("Ingresa la marca a buscar: ");
+                    String marcaBuscar = sc.nextLine();
+                    boolean hallada = false;
+                    for (Computadora c : lista) {
+                        if (c.getMarca().equalsIgnoreCase(marcaBuscar)) {
+                            System.out.println(c);
+                            hallada = true;
+                        }
+                    }
+                    if (!hallada) {
+                        System.out.println(" No se encontró ninguna computadora con esa marca.");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("=== ELIMINAR COMPUTADORA ===");
+                    System.out.print("Ingresa la marca a eliminar: ");
+                    String marcaEliminar = sc.nextLine();
+                    Computadora eliminar = null;
+                    for (Computadora c : lista) {
+                        if (c.getMarca().equalsIgnoreCase(marcaEliminar)) {
+                            eliminar = c;
+                            break;
+                        }
+                    }
+                    if (eliminar != null) {
+                        lista.remove(eliminar);
+                        System.out.println("Computadora eliminada correctamente.");
+                    } else {
+                        System.out.println(" No se encontró una computadora con esa marca.");
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("=== CONTAR ===");
+                    System.out.println("Total de computadoras: " + lista.size());
+                    break;
+
+                case 7:
+                    System.out.println("=== ELIMINAR TODO ===");
+                    lista.clear();
+                    System.out.println(" Todas las computadoras fueron eliminadas.");
+                    break;
+
+                case 8:
+                    System.out.println(" Saliendo del menú...");
+                    break;
+
+                default:
+                    System.out.println(" Opción no válida. Intenta de nuevo.");
+            }
+
+            System.out.println(); 
+
+        } while (opcion != 8);
+
+        sc.close();
+    }
+}

@@ -1,0 +1,33 @@
+package com.mx.HashMap;
+
+public class Principal {
+	public static void main(String[] args) {
+		
+		Mueble m1 = new Mueble("Alacena", "cafe", "MDF", 5500.25, 1, "Cocina");
+		Mueble m2 = new Mueble("Colchon", "morado", "tela", 3500.25, 1, "habitacion");
+		Mueble m4 = new Mueble("Sofá", "gris", "microfibra", 12000.50, 1, "Sala");
+		Mueble m5 = new Mueble("Escritorio", "pino", "madera", 3500.00, 1, "Oficina");
+		Mueble m6 = new Mueble("Cama", "blanca", "melamina", 8000.00, 1, "Dormitorio");
+
+		
+		Mueble aux = null;
+		MuebleImp imp = new MuebleImp();
+		
+		imp.guardar(m1);
+		imp.guardar(m2);
+		imp.guardar(m4);
+		imp.guardar(m5);
+		imp.guardar(m6);
+		
+		imp.mostrar();
+		//buscar
+		aux = new Mueble("Alacena");
+		aux = imp.buscar(aux);
+		System.out.println(aux);
+		//editar
+		
+		aux = new Mueble("Escritorio1");
+		
+	}
+
+}

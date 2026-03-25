@@ -1,0 +1,26 @@
+package Cuenta;
+
+public class CuentaAhorro extends Cuenta {
+    private double tasaInteres;
+
+    // Constructor
+    public CuentaAhorro(String titular, double cantidad, double tasaInteres) {
+        super(titular, cantidad);
+        this.tasaInteres = tasaInteres;
+    }
+
+    // Getter y Setter
+    public double getTasaInteres() {
+        return tasaInteres;
+    }
+
+    public void setTasaInteres(double tasaInteres) {
+        this.tasaInteres = tasaInteres;
+    }
+
+    // Método para calcular el interés
+    public void calcularInteres() {
+        double interes = getCantidad() * tasaInteres / 100;
+        System.out.println("Interés generado: $" + interes);
+    }
+}
