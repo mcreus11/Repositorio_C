@@ -1,0 +1,150 @@
+DECLARE
+    V_NOMBRE NVARCHAR2(20) := 'MARCO';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('HOLA ' || V_NOMBRE);
+END;
+/
+-- INDICADOR (HASTA AQUI SE EJECUTA MI BLOQUE).
+--USO DE CICLOS
+DECLARE
+    LV_VARIABLE NUMBER := 0;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('VALOR DE LA VARIABLE ' || LV_VARIABLE);
+        LV_VARIABLE := LV_VARIABLE + 1;
+        --SALIR CUANDO LV_VARIABLE = 10
+        IF LV_VARIABLE = 10 THEN
+            EXIT;
+        END IF;
+    END LOOP;
+END;
+/
+
+-->FOR Y LOOP
+DECLARE
+BEGIN
+    --FOR
+    FOR i IN 1..10
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('VALOR DE LA VARIABLE FOR ' || i);
+        --SAL CUANDO EL VALOR LLGUE A 6
+        EXIT WHEN i=6;
+    END LOOP;
+END;
+/
+
+-- >WHILE Y LOOP
+DECLARE
+LV_ITERADOR NUMBER := 1;
+BEGIN
+WHILE LV_ITERADOR <= 6
+LOOP
+DBMS_OUTPUT.PUT_LINE('VALOR DE LA VARIABLE ' || LV_ITERADOR);
+LV_ITERADOR := LV_ITERADOR + 1;
+END LOOP;
+END;
+/
+
+--USO DE VARIABLE BOOLEANAS Y LOOP
+DECLARE
+    LV_VALIDADOR BOOLEAN := FALSE;
+BEGIN
+    FOR i IN 1..20
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('VALOR DEL VARIABLE: ' || i);
+        IF i = 9 THEN
+            LV_VALIDADOR := TRUE;
+        END IF;
+        --SALIR CUANDO LA CONDICION SE CUMPLA
+        EXIT WHEN LV_VALIDADOR;
+    END LOOP;
+END;
+/
+
+
+
+//Calcular la suma de los dígitos de un número
+DECLARE
+    V_NUMERO NUMBER := 12345678910;
+    V_SUMA   NUMBER := 0;
+    V_TEMP   NUMBER;
+BEGIN
+    V_TEMP := V_NUMERO;
+    WHILE V_TEMP > 0 LOOP
+        V_SUMA := V_SUMA + MOD(V_TEMP, 10);  
+        V_TEMP := TRUNC(V_TEMP / 10);       
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('LA SUMA DE LOS DÍGITOS DE ' || V_NUMERO || ' ES: ' || V_SUMA);
+END;
+/
+------------------------------------------------------------
+
+-- MOSTRAR LA CUENTA REGRESIVA DE 20 A 0 EN NÚMEROS PARES
+BEGIN
+    FOR I IN REVERSE 0..20 LOOP
+        IF MOD(I, 2) = 0 THEN
+            DBMS_OUTPUT.PUT_LINE(I);
+        END IF;
+    END LOOP;
+END;
+/
+------------------------------------------------------------
+
+-- CALCULAR LA POTENCIA DE UN NÚMERO
+DECLARE
+    V_BASE NUMBER := 3;
+    V_EXPONENTE NUMBER := 4;
+    V_RESULTADO NUMBER := 1;
+BEGIN
+    FOR I IN 1..V_EXPONENTE LOOP
+        V_RESULTADO := V_RESULTADO * V_BASE;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE(V_BASE || ' ^ ' || V_EXPONENTE || ' = ' || V_RESULTADO);
+END;
+/
+------------------------------------------------------------
+
+-- MOSTRAR LOS CARACTERES DE TU NOMBRE
+DECLARE
+    V_NOMBRE VARCHAR2(20) := 'MARCO';
+BEGIN
+    FOR I IN 1..LENGTH(V_NOMBRE) LOOP
+        DBMS_OUTPUT.PUT_LINE('VALOR = ' || SUBSTR(V_NOMBRE, I, 1));
+    END LOOP;
+END;
+/
+------------------------------------------------------------
+
+-- MOSTRAR SI UN NÚMERO ES PRIMO
+DECLARE
+    V_NUMERO NUMBER := 17;
+    V_CONTADOR NUMBER := 0;
+BEGIN
+    FOR I IN 1..V_NUMERO LOOP
+        IF MOD(V_NUMERO, I) = 0 THEN
+            V_CONTADOR := V_CONTADOR + 1;
+        END IF;
+    END LOOP;
+
+    IF V_CONTADOR = 2 THEN
+        DBMS_OUTPUT.PUT_LINE(V_NUMERO || ' ES PRIMO.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(V_NUMERO || ' NO ES PRIMO.');
+    END IF;
+END;
+/
+------------------------------------------------------------
+
+-- MOSTRAR LAS TABLAS DE MULTIPLICAR DEL 1 AL 10
+BEGIN
+    FOR I IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE('--- TABLA DEL ' || I || ' ---');
+        FOR J IN 1..10 LOOP
+            DBMS_OUTPUT.PUT_LINE(I || ' * ' || J || ' = ' || (I * J));
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE(' ');
+    END LOOP;
+END;
+/
