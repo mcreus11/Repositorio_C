@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  
+  <button 
+    class="btn btn-primary mb-3" 
+    [routerLink]="['/guardarLibro']"
+    style="margin-left: 20px;">
+    Registrar Nuevo Libro
+  </button>
+  
+  <div class="card-body">
+    </div>
+</div>
+
+<div class="card-body">
+  <table class="table table-hover-primary">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">NOMBRE</th>
+        <th scope="col">AUTOR</th>
+        <th scope="col">EDITORIAL</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">OPERACIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (librito of libros; track librito.idLibro) {
+        <tr class="table-secondary">
+          <td>{{librito.idLibro}}</td>
+          <td>{{librito.nombre}}</td>
+          <td>{{librito.autor}}</td>
+          <td>{{librito.editorial}}</td>
+          <td>{{librito.isbn}}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="editar(librito)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminar(librito)">Eliminar</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6" style="text-align: center;">No hay registros</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

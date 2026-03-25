@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h4> Registrar Rol</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="guardarRol()">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Privilegio:</label>
+          <input type="text"
+                 [(ngModel)]="rol.privilegio"
+                 name="privilegio"
+                 class="form-control"
+                 placeholder="Ejemplo: ADMINISTRADOR"
+                 required>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-success me-2">
+            <i class="bi bi-save2 me-1"></i> Guardar Rol
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/listarR']">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-warning text-white text-center">
+      <h4> Editar Rol</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="actualizarRol()">
+        <div class="mb-3">
+          <label class="form-label fw-bold">ID Rol:</label>
+          <input type="number"
+                 [(ngModel)]="rol.idRol"
+                 name="idRol"
+                 class="form-control bg-light"
+                 readonly>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Privilegio:</label>
+          <input type="text"
+                 [(ngModel)]="rol.privilegio"
+                 name="privilegio"
+                 class="form-control"
+                 placeholder="Ejemplo: GERENTE"
+                 required>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary me-2">
+            <i class="bi bi-pencil-square me-1"></i> Actualizar
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/listarR']">
+            <i class="bi bi-arrow-left me-1"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

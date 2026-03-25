@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="card mx-auto my-4" style="max-width: 50rem;">
+        <div class="card-header bg-primary text-white">
+            <h2>Registrar Nuevo Préstamo</h2>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="guardar()">
+
+                <div class="mb-3">
+                    <label for="libroId" class="form-label">LIBRO PRESTADO</label>
+                    <select class="form-control" name="libroId" [(ngModel)]="prestamo.libroId" required>
+                        <option [ngValue]="undefined" disabled selected>-- Selecciona un Libro --</option>
+                        @for (libro of libros; track libro.idLibro) {
+                        <option [ngValue]="libro">{{libro.nombre}} (ID: {{libro.idLibro}})</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fechaInicio" class="form-label">FECHA INICIO</label>
+                    <input type="date" class="form-control" name="fechaInicio" [(ngModel)]="prestamo.fechaInicio"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fechaFin" class="form-label">FECHA FIN</label>
+                    <input type="date" class="form-control" name="fechaFin" [(ngModel)]="prestamo.fechaFin" required>
+                </div>
+
+                <div style="text-align: center;" class="mt-4">
+                    <button type="submit" class="btn btn-success me-3">GUARDAR PRÉSTAMO</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h3 class="mb-0">
+                <i class="fas fa-edit me-2"></i> Editar Préstamo
+            </h3>
+        </div>
+        <!-- 💡 AGREGAMOS *ngIf para asegurar que 'prestamo' y sus anidados estén inicializados antes de renderizar -->
+        <div class="card-body p-4" *ngIf="prestamo">
+            
+            <!-- El (ngSubmit) llama al método 'editar()' del componente TypeScript -->
+            <form (ngSubmit)="editar()">
+                
+                <!-- ID del Préstamo -->
+                <div class="mb-4">
+                    <label for="idPrestamo" class="form-label fw-bold">ID del Préstamo</label>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        id="idPrestamo" 
+                        name="idPrestamo"
+                        [(ngModel)]="prestamo.idPrestamo" 
+                        readonly 
+                        required>
+                    <div class="form-text text-muted">Identificador único (No editable).</div>
+                </div>
+
+                <!-- Fecha de Inicio -->
+                <div class="mb-4">
+                    <label for="fechaInicio" class="form-label fw-bold">Fecha de Inicio</label>
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        id="fechaInicio" 
+                        name="fechaInicio"
+                        [(ngModel)]="prestamo.fechaInicio" 
+                        required>
+                </div>
+
+                <!-- Fecha de Fin -->
+                <div class="mb-4">
+                    <label for="fechaFin" class="form-label fw-bold">Fecha de Fin</label>
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        id="fechaFin" 
+                        name="fechaFin"
+                        [(ngModel)]="prestamo.fechaFin" 
+                        required>
+                </div>
+
+                <!-- ID del Libro (Usando Operador Elvis '?') -->
+                <div class="mb-4">
+                    <label for="idLibro" class="form-label fw-bold">ID del Libro</label>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        id="idLibro" 
+                        name="idLibro"
+                        required
+                        placeholder="Ingrese el ID del libro asociado">
+                    <div class="form-text">Campo asociado al objeto 'libroId'.</div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <!-- Botones de Acción -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success btn-lg shadow-sm me-md-2">
+                        <i class="fas fa-save me-1"></i> Guardar Cambios
+                    </button>
+                   
+                </div>
+            </form>
+            
+        </div>
+        <!-- Opcional: Mostrar un mensaje mientras se cargan los datos -->
+        <div class="card-body p-4 text-center" *ngIf="!prestamo">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-2">Cargando datos del préstamo...</p>
+        </div>
+    </div>
+</div>

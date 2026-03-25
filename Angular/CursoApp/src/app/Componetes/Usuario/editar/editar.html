@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-primary text-white text-center fw-bold fs-5">
+      Editar Usuario
+    </div>
+
+    <div class="card-body p-4">
+      <form (ngSubmit)="actualizarUsuario()">
+        <div class="row g-3">
+          <!-- Nombre -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Nombre</label>
+            <input type="text" [(ngModel)]="usuario.nombre" name="nombre" class="form-control" required />
+          </div>
+
+          <!-- Apellido Paterno -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Apellido Paterno</label>
+            <input type="text" [(ngModel)]="usuario.app" name="app" class="form-control" required />
+          </div>
+
+          <!-- Apellido Materno -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Apellido Materno</label>
+            <input type="text" [(ngModel)]="usuario.apm" name="apm" class="form-control" />
+          </div>
+
+          <!-- Sexo -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Sexo</label>
+            <select [(ngModel)]="usuario.sexo" name="sexo" class="form-select" required>
+              <option value="">Seleccione...</option>
+              <option value="MASCULINO">MASCULINO</option>
+              <option value="FEMENINO">FEMENINO</option>
+              <option value="NO BINARIO">NO BINARIO</option>
+            </select>
+          </div>
+
+          <!-- Fecha de nacimiento -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Fecha de Nacimiento</label>
+            <input type="date" [(ngModel)]="usuario.fechaNacimiento" name="fechaNacimiento" class="form-control" required />
+          </div>
+
+          <!-- Correo -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Correo</label>
+            <input type="email" [(ngModel)]="usuario.correo" name="correo" class="form-control" readonly />
+          </div>
+
+          <!-- Rol -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Rol</label>
+            <select [(ngModel)]="usuario.rol.idRol" name="idRol" class="form-select" required>
+              <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.privilegio }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary px-4 me-2">
+            <i class="bi bi-save me-1"></i> Guardar Cambios
+          </button>
+          <button type="button" routerLink="/listarU" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
