@@ -1,0 +1,30 @@
+spring.application.name=ApiGateway
+
+# Puerto del gateway
+server.port=9000
+
+# Registro de Eureka
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.instance.prefer-ip-address=true
+
+# Rutas para Veterinaria
+spring.cloud.gateway.routes[0].id=Veterinaria
+spring.cloud.gateway.routes[0].uri=lb://Veterinaria
+spring.cloud.gateway.routes[0].predicates[0]=Path=/veterinaria/**
+
+# Rutas para Responsables
+spring.cloud.gateway.routes[1].id=Responsables
+spring.cloud.gateway.routes[1].uri=lb://Responsables
+spring.cloud.gateway.routes[1].predicates[0]=Path=/api/responsables/**
+
+# Rutas para Mascotas
+spring.cloud.gateway.server.webmvc.routes[5].id=Mascotas
+spring.cloud.gateway.server.webmvc.routes[5].uri=http://localhost:8003
+spring.cloud.gateway.server.webmvc.routes[5].predicates=Path=/api/mascotas/**
+
+
+
+# Rutas para Clientes
+spring.cloud.gateway.routes[3].id=Clientes
+spring.cloud.gateway.routes[3].uri=lb://Clientes
+spring.cloud.gateway.routes[3].predicates[0]=Path=/clientes/**

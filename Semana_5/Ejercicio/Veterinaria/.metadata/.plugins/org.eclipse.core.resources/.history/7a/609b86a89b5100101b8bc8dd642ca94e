@@ -1,0 +1,47 @@
+package com.mx.Responsables.Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Responsables.Entity.Responsable;
+import com.mx.Responsables.Repository.ResponsableRepository;
+
+@Service
+public class ResponsableServiceImpl implements ResponsableService {
+
+    @Autowired
+    private ResponsableRepository repository;
+
+    @Override
+    public List<Responsable> obtenerTodos() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Responsable obtenerPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("No encontrado"));
+    }
+
+    @Override
+    public Responsable guardar(Responsable responsable) {
+        return repository.save(responsable);
+    }
+
+    @Override
+    public Responsable actualizar(Long id, Responsable responsable) {
+        Responsable existente = obtenerPorId(id);
+        existente.setNombre(responsable.getNombre());
+        existente.setContacto(responsable.getContacto());
+        existente.setVeterinariaId(responsable.getVeterinariaId());
+        return repository.save(existente);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        repository.deleteById(id);
+    }
+
+	
+}

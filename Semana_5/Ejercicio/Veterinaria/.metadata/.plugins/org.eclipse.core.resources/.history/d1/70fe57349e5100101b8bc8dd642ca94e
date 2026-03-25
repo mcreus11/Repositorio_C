@@ -1,0 +1,13 @@
+package com.mx.Responsables.Feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.mx.Responsables.Entidad.Veterinaria;
+
+@FeignClient(name = "veterinaria", url = "http://localhost/8001", path = "/veterinaria") 
+public interface VeterinariaClient {
+    @GetMapping("/{id}")
+    Veterinaria obtener(@PathVariable("id") Long id);
+}

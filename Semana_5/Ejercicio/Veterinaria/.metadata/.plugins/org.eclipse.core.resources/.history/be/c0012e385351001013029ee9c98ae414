@@ -1,0 +1,73 @@
+package com.mx.Mascotas.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Mascotas.DTO.ClienteDTO;
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Feign.ClienteClient;
+import com.mx.Mascotas.Repository.MascotaRepository;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Override
+    public Mascota guardarMascota(Mascota mascota) {
+        return mascotaRepository.save(mascota);
+    }
+
+    @Override
+    public List<Mascota> listarMascotas() {
+        return mascotaRepository.findAll();
+    }
+
+    @Override
+    public Mascota obtenerPorId(Long id) {
+        return mascotaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + id));
+    }
+
+    @Override
+    public Mascota actualizarMascota(Long id, Mascota mascotaActualizada) {
+        Mascota existente = obtenerPorId(id);
+        existente.setNombre(mascotaActualizada.getNombre());
+        existente.setRaza(mascotaActualizada.getRaza());
+        existente.setEdad(mascotaActualizada.getEdad());
+        existente.setRazonCita(mascotaActualizada.getRazonCita());
+        existente.setClienteId(mascotaActualizada.getClienteId());
+        existente.setResponsableId(mascotaActualizada.getResponsableId());
+        existente.setVeterinariaId(mascotaActualizada.getVeterinariaId());
+        return mascotaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminarMascota(Long id) {
+        Mascota mascota = obtenerPorId(id);
+        mascotaRepository.delete(mascota);
+    }
+
+    @Override
+    public ClienteDTO obtenerClienteDeMascota(Long idMascota) {
+        Mascota mascota = mascotaRepository.findById(idMascota)
+            .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + idMascota));
+
+        Long clienteId = mascota.getClienteId();
+
+        try {
+            return clienteClient.getClienteById(clienteId);
+        } catch (Exception e) {
+            System.out.println("ERROR AL CONSULTAR CLIENTE: " + e.getMessage());
+            e.printStackTrace(); // Muestra el error completo en consola
+            throw new RuntimeException("Error al obtener cliente con id: " + clienteId, e);
+        }
+    }
+}

@@ -1,0 +1,14 @@
+package com.mx.Mascotas.Repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mx.Mascotas.Entity.Mascota;
+
+public interface MascotaRepository extends JpaRepository<Mascota, Long> {
+	List<Mascota> findByClienteId(Long clienteId);
+
+	List<Mascota> findByResponsableId(Long responsableId);
+
+}

@@ -1,0 +1,11 @@
+package com.mx.Veterinaria.Service;
+
+import java.util.List;
+import java.util.Optional;
+public class VeterinariaService {
+	List<Veterinaria> listar();
+    Veterinaria guardar(Veterinaria veterinaria);
+    Optional<Veterinaria> buscarPorId(Long id);
+    void eliminar(Long id);
+
+}

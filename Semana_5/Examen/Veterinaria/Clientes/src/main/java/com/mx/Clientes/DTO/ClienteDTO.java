@@ -1,0 +1,54 @@
+package com.mx.Clientes.DTO;
+
+import com.mx.Clientes.Entity.Cliente;
+
+public class ClienteDTO {
+
+	private Long idCliente;
+    private String nombre;
+    private String direccion;
+    private Long contacto;
+
+    public ClienteDTO() {}
+
+    
+    public ClienteDTO(Cliente cliente) {
+        this.idCliente = cliente.getIdCliente();
+        this.nombre = cliente.getNombre();
+        this.direccion = cliente.getDireccion();
+        this.contacto = cliente.getContacto();
+    }
+
+    
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Long getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(Long contacto) {
+        this.contacto = contacto;
+    }
+}

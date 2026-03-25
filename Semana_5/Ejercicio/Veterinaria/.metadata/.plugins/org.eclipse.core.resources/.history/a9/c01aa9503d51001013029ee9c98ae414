@@ -1,0 +1,38 @@
+spring.application.name=ApiGateway
+
+# Puerto del gateway
+server.port=9000
+spring.cloud.service-registry.auto-registration.enabled=true
+
+
+#gestion de veterinaria 
+
+spring.cloud.gateway.server.webmvc.routes[1].id=Veterinaria
+
+spring.cloud.gateway.server.webmvc.routes[1].uri=http://localhost:8001
+
+spring.cloud.gateway.server.webmvc.routes[1].predicates=Path=/veterinaria/**
+
+#gestion de Responsables
+
+spring.cloud.gateway.server.webmvc.routes[2].id=Responsables
+
+spring.cloud.gateway.server.webmvc.routes[2].uri=http://localhost:8002
+
+spring.cloud.gateway.server.webmvc.routes[2].predicates=Path=/api/responsables/**
+
+#gestion de mascotas
+
+spring.cloud.gateway.server.webmvc.routes[3].id=Mascotas
+
+spring.cloud.gateway.server.webmvc.routes[3].uri=http://localhost:8003
+
+spring.cloud.gateway.server.webmvc.routes[3].predicates=Path=/api/mascotas/**
+
+#gestion de clientes
+
+spring.cloud.gateway.server.webmvc.routes[4].id=Clientes
+
+spring.cloud.gateway.server.webmvc.routes[4].uri=http://localhost:8080
+
+spring.cloud.gateway.server.webmvc.routes[4].predicates=Path=/clientes/**

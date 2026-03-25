@@ -1,0 +1,120 @@
+package com.mx.Mascotas.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Mascotas.Entidades.Cliente;
+import com.mx.Mascotas.Entidades.Responsable;
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Feign.ClienteClient;
+import com.mx.Mascotas.Feign.ResponsableClient;
+import com.mx.Mascotas.Repository.MascotaRepository;
+
+import feign.FeignException;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Override
+    public Mascota guardarMascota(Mascota mascota) {
+        return mascotaRepository.save(mascota);
+    }
+
+    @Override
+    public List<Mascota> listarMascotas() {
+        return mascotaRepository.findAll();
+    }
+
+    @Override
+    public Mascota obtenerPorId(Long id) {
+        return mascotaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + id));
+    }
+
+    @Override
+    public Mascota actualizarMascota(Long id, Mascota mascotaActualizada) {
+        Mascota existente = obtenerPorId(id);
+        existente.setNombre(mascotaActualizada.getNombre());
+        existente.setRaza(mascotaActualizada.getRaza());
+        existente.setEdad(mascotaActualizada.getEdad());
+        existente.setRazonCita(mascotaActualizada.getRazonCita());
+        existente.setClienteId(mascotaActualizada.getClienteId());
+        existente.setResponsableId(mascotaActualizada.getResponsableId());
+        existente.setVeterinariaId(mascotaActualizada.getVeterinariaId());
+        return mascotaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminarMascota(Long id) {
+        Mascota mascota = obtenerPorId(id);
+        mascotaRepository.delete(mascota);
+    }
+
+    // Nuevo método para consumir un cliente por ID usando Feign
+    public Cliente obtenerClientePorId(long idCliente) {
+        try {
+            return clienteClient.obtenerPorId(idCliente);
+        } catch (FeignException.NotFound e) {
+            return null; // Cliente no encontrado
+        } catch (FeignException e) {
+            // Error en la comunicación
+            throw new RuntimeException("Error al comunicarse con el microservicio de clientes", e);
+        }
+    }
+
+    @Override
+    public Map<String, Object> getModulos(long idMascota) {
+        Map<String, Object> resultado = new HashMap<>();
+        Mascota mascota = mascotaRepository.findById(idMascota).orElse(null);
+
+        if (mascota == null) {
+            resultado.put("mensaje", "La mascota no está registrada");
+        } else {
+            resultado.put("mascota", mascota);
+
+            Cliente cliente = obtenerClientePorId(mascota.getClienteId());
+            if (cliente == null) {
+                resultado.put("cliente mensaje", "No hay cliente registrado para esta mascota");
+            } else {
+                resultado.put("cliente", cliente);
+            }
+        }
+        return resultado;
+    }
+    
+    @Autowired
+    private ResponsableClient responsableClient;
+    
+    @Override
+    public Map<String, Object> getResponsableConMascotas(Long responsableId) {
+        Map<String, Object> resultado = new HashMap<>();
+
+        try {
+            Responsable responsable = responsableClient.obtenerPorId(responsableId);
+            resultado.put("responsable", responsable);
+        } catch (FeignException.NotFound e) {
+            resultado.put("mensaje", "Responsable no encontrado");
+            return resultado;
+        } catch (Exception e) {
+            resultado.put("error", "Error al comunicarse con el microservicio de responsables");
+            return resultado;
+        }
+
+        List<Mascota> mascotas = mascotaRepository.findByResponsableId(responsableId);
+        resultado.put("mascotas", mascotas);
+
+        return resultado;
+    }
+
+}

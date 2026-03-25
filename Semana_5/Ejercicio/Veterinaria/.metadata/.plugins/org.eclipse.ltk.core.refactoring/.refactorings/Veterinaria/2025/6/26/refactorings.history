@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;Veterinaria&apos;&#x0D;&#x0A;- Original project: &apos;Veterinaria&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Veterinaria/src/main/java/com.mx.Veterinaria.Client&#x0D;&#x0A;     Veterinaria/src/main/java/com.mx.Veterinaria.DTO" description="Delete elements" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.mx.Veterinaria.DTO" element2="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.mx.Veterinaria.Client" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1750889434025" subPackages="false" version="1.0"/>
+</session>

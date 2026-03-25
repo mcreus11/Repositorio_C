@@ -1,0 +1,73 @@
+package com.mx.Mascotas.Controller;
+
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Service.MascotaService;
+
+@RestController
+@RequestMapping("/mascotas")
+public class MascotaController {
+
+    @Autowired
+    private MascotaService mascotaService;
+
+    @PostMapping
+    public ResponseEntity<Mascota> crearMascota(@RequestBody Mascota mascota) {
+        Mascota guardada = mascotaService.guardarMascota(mascota);
+        return ResponseEntity.status(HttpStatus.CREATED).body(guardada);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Mascota>> listarMascotas() {
+        List<Mascota> lista = mascotaService.listarMascotas();
+        return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Mascota> obtenerPorId(@PathVariable Long id) {
+        try {
+            Mascota mascota = mascotaService.obtenerPorId(id);
+            return ResponseEntity.ok(mascota);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Mascota> actualizarMascota(@PathVariable Long id, @RequestBody Mascota mascotaActualizada) {
+        try {
+            Mascota actualizada = mascotaService.actualizarMascota(id, mascotaActualizada);
+            return ResponseEntity.ok(actualizada);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarMascota(@PathVariable Long id) {
+        try {
+            mascotaService.eliminarMascota(id);
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Endpoint para obtener la mascota junto con datos del cliente
+    @GetMapping("/todo/{idMascota}")
+    public ResponseEntity<?> listarTodo(@PathVariable int idMascota) {
+        Map<String,Object> resultado = mascotaService.getMascotaConCliente(idMascota);
+        if (resultado.containsKey("mensaje")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultado);
+        }
+        return ResponseEntity.ok(resultado);
+    }
+}

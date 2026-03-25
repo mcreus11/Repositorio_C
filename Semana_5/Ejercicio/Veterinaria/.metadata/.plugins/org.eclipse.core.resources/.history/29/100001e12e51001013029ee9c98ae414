@@ -1,0 +1,23 @@
+spring.application.name=Clientes
+
+server.port=8004
+
+# Configuración de la base de datos H2 en memoria
+spring.datasource.url=jdbc:h2:mem:veterinaria;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# JPA / Hibernate
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+
+# Consola H2
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Eureka Client
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true

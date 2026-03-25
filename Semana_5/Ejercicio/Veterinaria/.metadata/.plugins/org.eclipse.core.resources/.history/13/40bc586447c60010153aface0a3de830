@@ -1,0 +1,22 @@
+spring.application.name=mascotas
+# Puerto
+server.port=8003
+
+# Oracle DB
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+spring.datasource.username=MARCO11
+spring.datasource.password=CURSO2024
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# JPA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
+
+# Eureka
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.instance.prefer-ip-address=true
+
+# Feign
+feign.client.config.default.connectTimeout=5000
+feign.client.config.default.readTimeout=5000

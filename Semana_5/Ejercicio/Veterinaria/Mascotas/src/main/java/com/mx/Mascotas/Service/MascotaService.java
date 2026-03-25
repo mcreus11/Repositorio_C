@@ -1,0 +1,19 @@
+package com.mx.Mascotas.Service;
+
+import java.util.List;
+import java.util.Map;
+
+
+import com.mx.Mascotas.Entity.Mascota;
+
+public interface MascotaService {
+	Mascota guardarMascota(Mascota mascota);
+    List<Mascota> listarMascotas();
+    Mascota obtenerPorId(Long id);
+    Mascota actualizarMascota(Long id, Mascota mascotaActualizada);
+    void eliminarMascota(Long id);
+	Map<String, Object> getModulos(long id);
+	Map<String, Object> getResponsableConMascotas(Long responsableId);
+
+
+}

@@ -1,0 +1,20 @@
+package com.mx.Mascotas.Feign;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.mx.Mascotas.Entidades.Cliente;
+
+@FeignClient(name = "clientes", url = "http://localhost:8080", path ="/clientes")
+public interface ClienteClient {
+
+	@GetMapping("/{id}")
+	public Cliente obtenerPorId(@PathVariable long id);
+
+
+
+	
+}

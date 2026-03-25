@@ -1,0 +1,26 @@
+spring.application.name=ApiGateway
+server.port=9000
+
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+# -------------------------------
+# RUTAS (Spring Cloud Gateway)
+# -------------------------------
+
+spring.cloud.gateway.routes[0].id=Veterinaria
+spring.cloud.gateway.routes[0].uri=http://localhost:8001
+spring.cloud.gateway.routes[0].predicates=Path=/veterinaria/**
+
+spring.cloud.gateway.routes[1].id=Responsables
+spring.cloud.gateway.routes[1].uri=http://localhost:8002
+spring.cloud.gateway.routes[1].predicates=Path=/api/responsables/**
+
+spring.cloud.gateway.routes[2].id=Mascotas
+spring.cloud.gateway.routes[2].uri=http://localhost:8003
+spring.cloud.gateway.routes[2].predicates=Path=/mascotas/**
+
+spring.cloud.gateway.routes[3].id=Clientes
+spring.cloud.gateway.routes[3].uri=http://localhost:8080
+spring.cloud.gateway.routes[3].predicates=Path=/clientes/**

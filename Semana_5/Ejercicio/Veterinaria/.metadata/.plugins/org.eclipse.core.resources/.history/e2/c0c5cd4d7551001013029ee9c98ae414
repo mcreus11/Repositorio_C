@@ -1,0 +1,99 @@
+package com.mx.Mascotas.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Mascotas.DTO.ClienteDTO;
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Feign.ClienteClient;
+import com.mx.Mascotas.Repository.MascotaRepository;
+
+import feign.FeignException;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Override
+    public Mascota guardarMascota(Mascota mascota) {
+        return mascotaRepository.save(mascota);
+    }
+
+    @Override
+    public List<Mascota> listarMascotas() {
+        return mascotaRepository.findAll();
+    }
+
+    @Override
+    public Mascota obtenerPorId(Long id) {
+        return mascotaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + id));
+    }
+
+    @Override
+    public Mascota actualizarMascota(Long id, Mascota mascotaActualizada) {
+        Mascota existente = obtenerPorId(id);
+        existente.setNombre(mascotaActualizada.getNombre());
+        existente.setRaza(mascotaActualizada.getRaza());
+        existente.setEdad(mascotaActualizada.getEdad());
+        existente.setRazonCita(mascotaActualizada.getRazonCita());
+        existente.setClienteId(mascotaActualizada.getClienteId());
+        existente.setResponsableId(mascotaActualizada.getResponsableId());
+        existente.setVeterinariaId(mascotaActualizada.getVeterinariaId());
+        return mascotaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminarMascota(Long id) {
+        Mascota mascota = obtenerPorId(id);
+        mascotaRepository.delete(mascota);
+    }
+
+    
+    
+    public Map<String, Object> getModulosMascota() {
+        Map<String, Object> resultado = new HashMap<>();
+        List<Mascota> mascotas = mascotaRepository.findAll();
+
+        if (mascotas.isEmpty()) {
+            resultado.put("mensaje", "No hay mascotas registradas");
+            return resultado;
+        }
+
+        // Lista combinada mascota + cliente
+        List<Map<String, Object>> lista = new ArrayList<>();
+
+        for (Mascota mascota : mascotas) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("mascota", mascota);
+
+            try {
+                ClienteDTO cliente = clienteClient.getClienteById(mascota.getClienteId().intValue());
+                item.put("cliente", cliente);
+            } catch (FeignException.NotFound e) {
+                item.put("cliente mensaje", "Cliente no encontrado con id: " + mascota.getClienteId());
+            } catch (FeignException e) {
+                item.put("cliente mensaje", "Error al comunicar con el servicio cliente");
+            }
+
+            lista.add(item);
+        }
+
+        resultado.put("data", lista);
+        return resultado;
+    }
+
+
+	
+}

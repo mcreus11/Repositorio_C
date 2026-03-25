@@ -1,0 +1,98 @@
+package com.mx.Mascotas.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Mascotas.DTO.ClienteDTO;
+import com.mx.Mascotas.Entidades.Cliente;
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Feign.ClienteClient;
+import com.mx.Mascotas.Repository.MascotaRepository;
+
+import feign.FeignException;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
+  
+    @Override
+    public Mascota guardarMascota(Mascota mascota) {
+        return mascotaRepository.save(mascota);
+    }
+
+    @Override
+    public List<Mascota> listarMascotas() {
+        return mascotaRepository.findAll();
+    }
+
+    @Override
+    public Mascota obtenerPorId(Long id) {
+        return mascotaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + id));
+    }
+
+    @Override
+    public Mascota actualizarMascota(Long id, Mascota mascotaActualizada) {
+        Mascota existente = obtenerPorId(id);
+        existente.setNombre(mascotaActualizada.getNombre());
+        existente.setRaza(mascotaActualizada.getRaza());
+        existente.setEdad(mascotaActualizada.getEdad());
+        existente.setRazonCita(mascotaActualizada.getRazonCita());
+        existente.setClienteId(mascotaActualizada.getClienteId());
+        existente.setResponsableId(mascotaActualizada.getResponsableId());
+        existente.setVeterinariaId(mascotaActualizada.getVeterinariaId());
+        return mascotaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminarMascota(Long id) {
+        Mascota mascota = obtenerPorId(id);
+        mascotaRepository.delete(mascota);
+    }
+
+    
+    @Autowired
+	private ClienteClient clienteclient;
+
+	public List<Cliente> obtenerClientesPorMascota(long idMascota) {
+	    return clienteclient.obtenerPorId(idMascota);
+	}
+    
+	
+    public Map<String, Object> getModulos(long idMascota){
+		Map<String, Object> resultado = new HashMap<>();
+		Mascota mascota = mascotaRepository.findById(idMascota).orElse(null);
+		if(mascota == null) {
+			resultado.put("Empresa mensaje", "Esta empresa no esta registrada");
+			
+		}else {
+			resultado.put("Mascota", mascota);
+			//consulta si hay trabajadores
+			List<Cliente> masco = obtenerClientesPorMascota(idMascota);
+			if(masco.isEmpty()) {
+				resultado.put("trabajador mensaje: ", "no hay trabajadores registrados");
+			}else {
+				resultado.put("trabajador", masco);
+			}
+		}
+		return resultado;
+	}
+
+	
+
+
+
+	
+
+
+	
+}

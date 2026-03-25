@@ -1,0 +1,16 @@
+package com.mx.Mascotas.DTO;
+
+import com.mx.Mascotas.Entity.Mascota;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class MascotaClienteDTO {
+	private Mascota mascota;
+    private ClienteDTO cliente;
+
+}

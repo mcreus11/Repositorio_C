@@ -1,0 +1,52 @@
+package com.mx.Mascotas.DTO;
+
+
+public class ClienteDTO {
+
+    private Long idCliente;
+    private String nombre;
+    private String direccion;
+    private Long contacto;
+
+    public ClienteDTO() {}
+
+    public ClienteDTO(Long idCliente, String nombre, String direccion, Long contacto) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.contacto = contacto;
+    }
+
+    // Getters y setters
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Long getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(Long contacto) {
+        this.contacto = contacto;
+    }
+}

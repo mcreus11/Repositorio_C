@@ -1,0 +1,14 @@
+package com.mx.Mascotas.DTO;
+
+import lombok.Data;
+
+@Data
+public class ClienteDTO {
+
+    private Long idCliente;
+    private String nombre;
+    private String direccion;
+    private Long contacto;
+
+   
+}

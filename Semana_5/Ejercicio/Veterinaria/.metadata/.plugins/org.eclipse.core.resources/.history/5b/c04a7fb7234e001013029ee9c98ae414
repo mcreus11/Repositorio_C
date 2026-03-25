@@ -1,0 +1,5 @@
+package com.mx.Responsables.Repository;
+
+public interface ResponsableRepository {
+
+}

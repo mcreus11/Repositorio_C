@@ -1,0 +1,89 @@
+package com.mx.Mascotas.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mx.Mascotas.DTO.ClienteDTO;
+import com.mx.Mascotas.DTO.MascotaClienteDTO;
+import com.mx.Mascotas.Entity.Mascota;
+import com.mx.Mascotas.Feign.ClienteClient;
+import com.mx.Mascotas.Repository.MascotaRepository;
+
+import feign.FeignException;
+
+@Service
+public class MascotaServiceImpl implements MascotaService {
+
+    @Autowired
+    private MascotaRepository mascotaRepository;
+
+    @Autowired
+    private ClienteClient clienteClient;
+
+    @Override
+    public Mascota guardarMascota(Mascota mascota) {
+        return mascotaRepository.save(mascota);
+    }
+
+    @Override
+    public List<Mascota> listarMascotas() {
+        return mascotaRepository.findAll();
+    }
+
+    @Override
+    public Mascota obtenerPorId(Long id) {
+        return mascotaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Mascota no encontrada con id: " + id));
+    }
+
+    @Override
+    public Mascota actualizarMascota(Long id, Mascota mascotaActualizada) {
+        Mascota existente = obtenerPorId(id);
+        existente.setNombre(mascotaActualizada.getNombre());
+        existente.setRaza(mascotaActualizada.getRaza());
+        existente.setEdad(mascotaActualizada.getEdad());
+        existente.setRazonCita(mascotaActualizada.getRazonCita());
+        existente.setClienteId(mascotaActualizada.getClienteId());
+        existente.setResponsableId(mascotaActualizada.getResponsableId());
+        existente.setVeterinariaId(mascotaActualizada.getVeterinariaId());
+        return mascotaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminarMascota(Long id) {
+        Mascota mascota = obtenerPorId(id);
+        mascotaRepository.delete(mascota);
+    }
+
+    
+    public Map<String,Object> getMascotaConCliente(int idMascota) {
+        Map<String,Object> resultado = new HashMap<>();
+
+        // 1. Buscamos la mascota
+        Mascota mascota = mascotaRepository.findById((long)idMascota).orElse(null);
+        if (mascota == null) {
+            resultado.put("mensaje", "Mascota no encontrada con id: " + idMascota);
+            return resultado;
+        }
+
+        // 2. La añadimos al resultado
+        resultado.put("mascota", mascota);
+
+        // 3. Intentamos obtener el cliente vía Feign
+        try {
+            ClienteDTO cliente = clienteClient.getClienteById(mascota.getClienteId().intValue());
+            resultado.put("cliente", cliente);
+        } catch (FeignException.NotFound e) {
+            resultado.put("clienteMensaje", "Cliente no encontrado con id: " + mascota.getClienteId());
+        } catch (FeignException e) {
+            resultado.put("clienteMensaje", "Error comunicándose con el servicio de clientes");
+        }
+
+        return resultado;
+    }
+}

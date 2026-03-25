@@ -1,0 +1,32 @@
+# Nombre del microservicio
+spring.application.name=veterinaria
+
+# Puerto del servidor
+server.port=8001
+
+# Configuración de la base de datos H2 en memoria
+spring.datasource.url=jdbc:h2:mem:veterinaria_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# Configuración JPA / Hibernate
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+spring.jpa.properties.hibernate.format_sql=true
+
+# Consola H2
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Configuración Eureka Client
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+
+# Configuración de la instancia Eureka
+eureka.instance.hostname=localhost
+eureka.instance.prefer-ip-address=true
+eureka.instance.lease-renewal-interval-in-seconds=10
+eureka.instance.lease-expiration-duration-in-seconds=30

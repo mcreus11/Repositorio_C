@@ -1,0 +1,5 @@
+package com.mx.Clientes.Repository;
+
+public interface ClienteRepository {
+
+}

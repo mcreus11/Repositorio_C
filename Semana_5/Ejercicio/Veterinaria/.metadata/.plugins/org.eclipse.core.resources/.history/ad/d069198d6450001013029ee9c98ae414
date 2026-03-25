@@ -1,0 +1,16 @@
+spring.application.name=Responsables
+
+server.port=8002
+# Oracle Database
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+spring.datasource.username=MARCO11
+spring.datasource.password=CURSO2024
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.Oracle12cDialect
+
+
+# Eureka Client
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.instance.prefer-ip-address=true
