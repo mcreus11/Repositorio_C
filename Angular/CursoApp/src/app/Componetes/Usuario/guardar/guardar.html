@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white text-center rounded-top-4">
+      <h3 class="mb-0">Registrar Usuario</h3>
+    </div>
+
+    <div class="card-body p-4">
+      <form (ngSubmit)="guardarUsuario()" autocomplete="off">
+        
+        <!-- Nombre -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nombre:</label>
+          <input type="text" [(ngModel)]="usuario.nombre" name="nombre"
+                 class="form-control form-control-lg" placeholder="Ingrese nombre" required>
+        </div>
+
+        <!-- Apellido Paterno -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Apellido Paterno:</label>
+          <input type="text" [(ngModel)]="usuario.app" name="app"
+                 class="form-control form-control-lg" placeholder="Ingrese apellido paterno" required>
+        </div>
+
+        <!-- Apellido Materno -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Apellido Materno:</label>
+          <input type="text" [(ngModel)]="usuario.apm" name="apm"
+                 class="form-control form-control-lg" placeholder="Ingrese apellido materno">
+        </div>
+
+        <!-- Sexo -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Sexo:</label>
+          <select [(ngModel)]="usuario.sexo" name="sexo" class="form-select form-select-lg" required>
+            <option value="">Seleccione...</option>
+            <option value="MASCULINO">Masculino</option>
+            <option value="FEMENINO">Femenino</option>
+            <option value="NO BINARIO">No Binario</option>
+          </select>
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Fecha de Nacimiento:</label>
+          <input type="date" [(ngModel)]="usuario.fechaNacimiento" name="fechaNacimiento"
+                 class="form-control form-control-lg" required>
+        </div>
+
+        <!-- Rol -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Rol ID:</label>
+          <input type="number" [(ngModel)]="usuario.rol.idRol" name="idRol"
+                 class="form-control form-control-lg" placeholder="Ingrese ID de rol" required>
+        </div>
+
+        <!-- Correo generado -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Correo (automático):</label>
+          <input type="text" [(ngModel)]="usuario.correo" name="correo"
+                 class="form-control form-control-lg bg-light" disabled>
+        </div>
+
+        <!-- Botón -->
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg px-5">
+            <i class="bi bi-save me-2"></i> Guardar Usuario
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

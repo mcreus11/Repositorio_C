@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <span class="text-warning">ENUCOM</span> | Gestión
+    </a>
+
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            id="navbarUsuarios"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Usuarios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarUsuarios">
+            <li>
+              <a routerLink="/listarU" routerLinkActive="active"
+                 class="dropdown-item">
+                Listar Usuarios
+              </a>
+            </li>
+            <li>
+              <a routerLink="/guardarU" routerLinkActive="active"
+                 class="dropdown-item">
+                Guardar Usuario
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            href="#"
+            id="navbarRoles"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Roles
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarRoles">
+            <li>
+              <a routerLink="/listarR" routerLinkActive="active"
+                 class="dropdown-item">
+                Listar Roles
+              </a>
+            </li>
+            <li>
+              <a routerLink="/guardarR" routerLinkActive="active"
+                 class="dropdown-item">
+                Guardar Rol
+              </a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container mt-4">
+  <router-outlet></router-outlet>
+</main>

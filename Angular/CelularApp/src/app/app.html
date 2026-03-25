@@ -1,0 +1,23 @@
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      
+      <h1>Hello, {{ title() }}</h1>
+      <p>Congratulations! Your app is running. 🎉</p>
+    </div>
+    <div class="divider" role="separator" aria-label="Divider"></div>
+    <div class="right-side">
+      <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+        <label class="btn btn-outline-danger" for="vbtn-radio1" [routerLink]="['/listarC']">Listar</label>
+        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+        <label class="btn btn-outline-danger" for="vbtn-radio2" [routerLink]="['/guardarC']">Guardar</label>
+        
+      </div>
+      
+    </div>
+  </div>
+</main>
+
+
+<router-outlet />

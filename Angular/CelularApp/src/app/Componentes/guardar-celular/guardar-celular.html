@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="card bg-dark text-white shadow-lg">
+        <div class="card-header bg-secondary">
+            <h2>Registro de celulares</h2>
+        </div>
+        <div class="card-body"> 
+            <form >
+                <div class="mb-3">
+                    <label for="idCelular">ID CELULAR</label>
+                    <input class="form-control" type="number" name="idCelular" placeholder="Ej: 1, 40" [(ngModel)]="cel.idCelular">
+                </div>
+
+                <div class="mb-3">
+                    <label for="marca">MARCA</label>
+                    <input class="form-control" type="text" name="marca" placeholder="Ej:Samsung" [(ngModel)]="cel.marca">
+                </div>
+
+                <div class="mb-3">
+                    <label for="modelo">MODELO</label>
+                    <input class="form-control" type="text" name="modelo" placeholder="Ej:Galaxi" [(ngModel)]="cel.modelo">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="ram">RAM</label>
+                    <input type="text" class="form-control" name="ram" placeholder="Ej:8gb" [(ngModel)]="cel.ram">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="procesador">PROCESADOR</label>
+                    <input class="form-control" type="text" name="procesador" placeholder="Ej:OCTA-CORE" [(ngModel)]="cel.procesador">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="precio">PRECIO</label>
+                    <input class="form-control" type="number" name="precio" placeholder="Ej:8522" [(ngModel)]="cel.precio">
+                </div>
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-success" (click)="guardar()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
